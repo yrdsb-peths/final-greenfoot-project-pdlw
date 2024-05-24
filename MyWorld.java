@@ -16,9 +16,33 @@ public class MyWorld extends World
     public MyWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 400, 1);
+        super(800, 800, 1);
         prepare();
+        Player player = new Player();
+        addObject(player, spawn.getX(), spawn.getY());
     }
+    public class Location 
+    {
+        private int x;
+        private int y;
+    
+        public Location(int x, int y) 
+        {
+            this.x = x;
+            this.y = y;
+        }
+    
+        public int getX() 
+        {
+            return x;
+        }
+    
+        public int getY() 
+        {
+            return y;
+        }
+    }
+    Location spawn = new Location(52, 690);
     
     /**
      * Prepare the world for the start of the program.
@@ -26,7 +50,13 @@ public class MyWorld extends World
      */
     private void prepare()
     {
-        Platform platform = new Platform();
-        addObject(platform,50,370);
+        Platform platform1 = new Platform();
+        addObject(platform1,52,718);
+        Platform platform2 = new Platform();
+        addObject(platform2,225,658);
+        Platform platform3 = new Platform();
+        addObject(platform3,408,595);
+        Platform platform4 = new Platform();
+        addObject(platform4,231,534);
     }
 }
