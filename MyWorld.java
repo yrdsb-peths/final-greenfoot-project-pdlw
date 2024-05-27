@@ -14,7 +14,7 @@ public class MyWorld extends World
         Greenfoot.setSpeed(45);
         Player player = new Player();
         addObject(player, spawn.getX(), spawn.getY());
-        player.getImage().scale(40,40);
+        player.getImage().scale(35,35);
     }
 
     public void gameOver()
@@ -36,7 +36,7 @@ public class MyWorld extends World
                 int oldY = clouds[i].getY();
                 removeObject(clouds[i]);
                 clouds[i] = new Cloud();
-                addObject(clouds[i], 1000, oldY);
+                addObject(clouds[i], 800+ clouds[i].getImage().getWidth()/2, oldY);
             }
         }
     }
@@ -62,11 +62,6 @@ public class MyWorld extends World
             return y;
         }
     }
-
-    /**
-     * Prepare the world for the start of the program.
-     * That is: create the initial objects and add them to the world.
-     */
     private void prepare()
     {
         Platform platform1 = new Platform();

@@ -14,7 +14,7 @@ public class Platform extends Actor
      */
     public Platform()
     {
-        getImage().scale(100, 25);
+        getImage().scale(100, 35);
     }
     public void act()
     {

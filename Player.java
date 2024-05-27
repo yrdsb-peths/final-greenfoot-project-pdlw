@@ -7,7 +7,8 @@ public class Player extends Actor
     private int vSpeed = 0;
     private int acceleration = 1;
     private int jumpHeight = -15;
-
+    private int lives = 9;
+    
     GreenfootImage[] idleLeft = new GreenfootImage[6];
     GreenfootImage[] idleRight = new GreenfootImage[6];
     String facing = "right";
@@ -15,6 +16,7 @@ public class Player extends Actor
 
     public Player()
     {
+        MyWorld world = (MyWorld) getWorld();
         for(int i = 0; i < 6; i++)
         {
             idleRight[i] = new GreenfootImage("tile0" + (i+1) + ".png");
@@ -40,13 +42,14 @@ public class Player extends Actor
         MyWorld world = (MyWorld) getWorld();
         if (getY() >= 799)
         {
-            world.gameOver();
-            world.removeObject(this);
+            lives--;
+            checkLives();
         }
         else
         {
             mover();
             checkFalling();
+            changeLives();
         }
     }
 
@@ -106,5 +109,30 @@ public class Player extends Actor
         {
             fall();
         }
+    }
+    public void changeLives()
+    {
+        if(isTouching(Spike.class))
+        {
+            lives--;
+        }
+    }
+    public void checkLives()
+    {
+        if(lives==0)
+        {
+            MyWorld world = (MyWorld) getWorld();
+            world.gameOver();
+            world.removeObject(this);
+        }
+        else if(lives == 1)
+        {
+            respawn();
+        }
+    }
+    public void respawn()
+    {
+        MyWorld world = (MyWorld) getWorld();
+        this.setLocation(world.spawn.getX(),world.spawn.getY());
     }
 }
