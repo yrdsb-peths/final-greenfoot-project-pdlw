@@ -14,7 +14,7 @@ public class MyWorld extends World
     public MyWorld()
     {    
         // Create a new world with 800x800 cells with a cell size of 1x1 pixels.
-        super(800, 800, 1);
+        super(800, 800, 1, false);
         prepare();
         Player player = new Player();
         addObject(player, spawn.getX(), spawn.getY());
@@ -68,5 +68,15 @@ public class MyWorld extends World
         addObject(platform3, 408, 595);
         Platform platform4 = new Platform();
         addObject(platform4, 231, 534);
+        Cloud cloud = new Cloud();
+        addObject(cloud,107,310);
+        Cloud cloud2 = new Cloud();
+        addObject(cloud2,322,381);
+        cloud2.getImage().scale(70, 40);
+        Cloud cloud3 = new Cloud();
+        addObject(cloud3,569,290);
+        cloud3.getImage().scale(130, 100);
+        Cloud cloud4 = new Cloud();
+        addObject(cloud4,590,426);
     }
 }

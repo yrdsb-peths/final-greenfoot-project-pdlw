@@ -1,30 +1,30 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Platform here.
+ * Write a description of class Cloud here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Platform extends Actor
+public class Cloud extends Actor
 {
     /**
-     * Act - do whatever the Platform wants to do. This method is called whenever
+     * Act - do whatever the Cloud wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public Platform()
-    {
-        getImage().scale(100, 25);
-    }
     public void act()
     {
         if (Greenfoot.isKeyDown("right"))
         {
-            move(-4);
+            move(-1);
         }
         if (Greenfoot.isKeyDown("left"))
         {
-            move(4);
+            move(1);
         }
+    }
+    public Cloud()
+    {
+        getImage().scale(100, 65);
     }
 }
