@@ -2,47 +2,69 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * Write a description of class Player here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
  */
 public class Player extends Actor
 {
     private int vSpeed = 0;
-    private int acceleration =1;
+    private int acceleration = 1;
+    private int jumpHeight = -15;
+
     /**
      * Act - do whatever the Player wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
     {
-        mover();
-        checkFalling();
+        MyWorld world = (MyWorld) getWorld();
+        if (getY() >= 799)
+        {
+            world.gameOver();
+            world.removeObject(this);
+        }
+        else
+        {
+            mover();
+            checkFalling();
+        }
     }
+
     private void fall()
     {
         setLocation(getX(), getY() + vSpeed);
         vSpeed += acceleration;
     }
+
     public void mover()
     {
-        if(Greenfoot.isKeyDown("right"))
+        if (Greenfoot.isKeyDown("right"))
         {
             move(4);
         }
-        if(Greenfoot.isKeyDown("left"))
+        if (Greenfoot.isKeyDown("left"))
         {
             move(-4);
         }
+        if (Greenfoot.isKeyDown("space") && onGround())
+        {
+            vSpeed = jumpHeight;
+            fall();
+        }
     }
-    boolean onGround()
+
+    private boolean onGround()
     {
-        Actor under = getOneObjectAtOffset(0, getImage().getHeight()/2, Platform.class);
-        return under != null;
+        int imageHeight = getImage().getHeight();
+        int imageWidth = getImage().getWidth();
+
+        Actor underLeft = getOneObjectAtOffset(-imageWidth / 2, imageHeight / 2, Platform.class);
+        Actor underRight = getOneObjectAtOffset(imageWidth / 2, imageHeight / 2, Platform.class);
+
+        return underLeft != null || underRight != null;
     }
-    public void checkFalling()
+
+    private void checkFalling()
     {
-        if(onGround() == false)
+        if (!onGround())
         {
             fall();
         }
