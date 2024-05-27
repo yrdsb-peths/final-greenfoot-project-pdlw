@@ -1,16 +1,11 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-/**
- * Write a description of class MyWorld here.
- * 
- */
 public class MyWorld extends World
 {
     private boolean isGameOver = false;
+    private Cloud[] clouds = new Cloud[6];
+    Location spawn = new Location(52, 690);
     
-    /**
-     * Constructor for objects of class MyWorld.
-     */
     public MyWorld()
     {    
         // Create a new world with 800x800 cells with a cell size of 1x1 pixels.
@@ -28,6 +23,21 @@ public class MyWorld extends World
             isGameOver = true;
             Label gameOverLabel = new Label("Game Over", 100);
             addObject(gameOverLabel, 400, 400);
+        }
+    }
+
+    public void act()
+    {
+        for(int i = 0; i < clouds.length; i++)
+        {
+            int cloudRightEdge = clouds[i].getX() + clouds[i].getImage().getWidth() / 2;
+            if(cloudRightEdge <= 0)
+            {
+                int oldY = clouds[i].getY();
+                removeObject(clouds[i]);
+                clouds[i] = new Cloud();
+                addObject(clouds[i], 1000, oldY);
+            }
         }
     }
 
@@ -53,8 +63,6 @@ public class MyWorld extends World
         }
     }
 
-    Location spawn = new Location(52, 690);
-
     /**
      * Prepare the world for the start of the program.
      * That is: create the initial objects and add them to the world.
@@ -69,19 +77,20 @@ public class MyWorld extends World
         addObject(platform3, 408, 595);
         Platform platform4 = new Platform();
         addObject(platform4, 231, 534);
-        Cloud cloud = new Cloud();
-        addObject(cloud,107,310);
-        Cloud cloud2 = new Cloud();
-        addObject(cloud2,322,381);
-        cloud2.getImage().scale(70, 40);
-        Cloud cloud3 = new Cloud();
-        addObject(cloud3,569,290);
-        cloud3.getImage().scale(130, 100);
-        Cloud cloud4 = new Cloud();
-        addObject(cloud4,590,426);
-        Cloud cloud5 = new Cloud();
-        addObject(cloud5,775,358);
-        Cloud cloud6 = new Cloud();
-        addObject(cloud6,15,422);
+
+        clouds[0] = new Cloud();
+        addObject(clouds[0], 107, 310);
+        clouds[1] = new Cloud();
+        addObject(clouds[1], 322, 381);
+        clouds[1].getImage().scale(70, 40);
+        clouds[2] = new Cloud();
+        addObject(clouds[2], 569, 290);
+        clouds[2].getImage().scale(130, 100);
+        clouds[3] = new Cloud();
+        addObject(clouds[3], 590, 426);
+        clouds[4] = new Cloud();
+        addObject(clouds[4], 775, 358);
+        clouds[5] = new Cloud();
+        addObject(clouds[5], 15, 422);
     }
 }
