@@ -1,18 +1,40 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.Timer;
+import java.util.TimerTask;
 
-/**
- * Write a description of class Player here.
- */
 public class Player extends Actor
 {
     private int vSpeed = 0;
     private int acceleration = 1;
     private int jumpHeight = -15;
 
-    /**
-     * Act - do whatever the Player wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    GreenfootImage[] idleLeft = new GreenfootImage[6];
+    GreenfootImage[] idleRight = new GreenfootImage[6];
+    String facing = "right";
+    Timer timer = new Timer();
+
+    public Player()
+    {
+        for(int i = 0; i < 6; i++)
+        {
+            idleRight[i] = new GreenfootImage("tile0" + (i+1) + ".png");
+        }
+        for(int i = 0; i < 6; i++)
+        {
+            idleLeft[i] = new GreenfootImage("tile0" + (i+1) + ".png");
+            idleLeft[i].mirrorHorizontally();
+        }
+        setImage(idleRight[0]);
+        timer.scheduleAtFixedRate(new TimerTask() 
+        {
+            @Override
+            public void run() 
+            {
+                animateElephant();
+            }
+        }, 100, 100);
+    }
+
     public void act()
     {
         MyWorld world = (MyWorld) getWorld();
@@ -28,6 +50,21 @@ public class Player extends Actor
         }
     }
 
+    int imageIndex = 0;
+    public void animateElephant()
+    {
+        if(facing.equals("right"))
+        {
+            setImage(idleRight[imageIndex]);
+            imageIndex = (imageIndex + 1) % idleRight.length;
+        }
+        else
+        {
+            setImage(idleLeft[imageIndex]);
+            imageIndex = (imageIndex + 1) % idleLeft.length;
+        }
+    }
+
     private void fall()
     {
         setLocation(getX(), getY() + vSpeed);
@@ -39,12 +76,14 @@ public class Player extends Actor
         if (Greenfoot.isKeyDown("right"))
         {
             move(4);
+            facing = "right";
         }
         if (Greenfoot.isKeyDown("left"))
         {
             move(-4);
+            facing = "left";
         }
-        if (Greenfoot.isKeyDown("space") && onGround())
+        if (Greenfoot.isKeyDown("up") && onGround())
         {
             vSpeed = jumpHeight;
             fall();
@@ -61,7 +100,6 @@ public class Player extends Actor
 
         return underLeft != null || underRight != null;
     }
-
     private void checkFalling()
     {
         if (!onGround())

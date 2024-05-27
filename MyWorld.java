@@ -16,6 +16,7 @@ public class MyWorld extends World
         // Create a new world with 800x800 cells with a cell size of 1x1 pixels.
         super(800, 800, 1, false);
         prepare();
+        Greenfoot.setSpeed(45);
         Player player = new Player();
         addObject(player, spawn.getX(), spawn.getY());
         player.getImage().scale(40,40);
@@ -78,5 +79,9 @@ public class MyWorld extends World
         cloud3.getImage().scale(130, 100);
         Cloud cloud4 = new Cloud();
         addObject(cloud4,590,426);
+        Cloud cloud5 = new Cloud();
+        addObject(cloud5,775,358);
+        Cloud cloud6 = new Cloud();
+        addObject(cloud6,15,422);
     }
 }
