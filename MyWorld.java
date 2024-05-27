@@ -3,7 +3,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class MyWorld extends World
 {
     private boolean isGameOver = false;
-    private Cloud[] clouds = new Cloud[6];
     Location spawn = new Location(52, 690);
     
     public MyWorld()
@@ -25,22 +24,6 @@ public class MyWorld extends World
             addObject(gameOverLabel, 400, 400);
         }
     }
-
-    public void act()
-    {
-        for(int i = 0; i < clouds.length; i++)
-        {
-            int cloudRightEdge = clouds[i].getX() + clouds[i].getImage().getWidth() / 2;
-            if(cloudRightEdge <= 0)
-            {
-                int oldY = clouds[i].getY();
-                removeObject(clouds[i]);
-                clouds[i] = new Cloud();
-                addObject(clouds[i], 800+ clouds[i].getImage().getWidth()/2, oldY);
-            }
-        }
-    }
-
     public class Location 
     {
         private int x;
@@ -73,19 +56,19 @@ public class MyWorld extends World
         Platform platform4 = new Platform();
         addObject(platform4, 231, 534);
 
-        clouds[0] = new Cloud();
-        addObject(clouds[0], 107, 310);
-        clouds[1] = new Cloud();
-        addObject(clouds[1], 322, 381);
-        clouds[1].getImage().scale(70, 40);
-        clouds[2] = new Cloud();
-        addObject(clouds[2], 569, 290);
-        clouds[2].getImage().scale(130, 100);
-        clouds[3] = new Cloud();
-        addObject(clouds[3], 590, 426);
-        clouds[4] = new Cloud();
-        addObject(clouds[4], 775, 358);
-        clouds[5] = new Cloud();
-        addObject(clouds[5], 15, 422);
+        Cloud cloud0 = new Cloud();
+        addObject(cloud0, 107, 310);
+        Cloud cloud1 = new Cloud();
+        addObject(cloud1, 322, 381);
+        cloud1.getImage().scale(70, 40);
+        Cloud cloud2 = new Cloud();
+        addObject(cloud2, 569, 290);
+        cloud2.getImage().scale(130, 100);
+        Cloud cloud3 = new Cloud();
+        addObject(cloud3, 590, 426);
+        Cloud cloud4 = new Cloud();
+        addObject(cloud4, 775, 358);
+        Cloud cloud5 = new Cloud();
+        addObject(cloud5, 15, 422);
     }
 }

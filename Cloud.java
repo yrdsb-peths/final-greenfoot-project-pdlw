@@ -22,6 +22,12 @@ public class Cloud extends Actor
         {
             move(1);
         }
+        int cloudRightEdge = getX() + getImage().getWidth() / 2;
+            if(cloudRightEdge <= 0)
+            {
+                int oldY = getY();
+                setLocation(800 + getImage().getWidth()/2, oldY);
+            }
     }
     public Cloud()
     {

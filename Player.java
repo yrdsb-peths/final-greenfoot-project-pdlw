@@ -7,32 +7,44 @@ public class Player extends Actor
     private int vSpeed = 0;
     private int acceleration = 1;
     private int jumpHeight = -15;
-    private int lives = 9;
-    
-    GreenfootImage[] idleLeft = new GreenfootImage[6];
-    GreenfootImage[] idleRight = new GreenfootImage[6];
+    private int lives = 2;
+
+    GreenfootImage[] idleLeft = new GreenfootImage[4];
+    GreenfootImage[] idleRight = new GreenfootImage[4];
+    GreenfootImage[] moveLeft = new GreenfootImage[6];
+    GreenfootImage[] moveRight = new GreenfootImage[6];
     String facing = "right";
     Timer timer = new Timer();
 
+    private boolean isMoving = false;
+
     public Player()
     {
-        MyWorld world = (MyWorld) getWorld();
-        for(int i = 0; i < 6; i++)
+        for (int i = 0; i < 4; i++)
         {
-            idleRight[i] = new GreenfootImage("tile0" + (i+1) + ".png");
+            idleRight[i] = new GreenfootImage("idle0" + (i + 1) + ".png");
         }
-        for(int i = 0; i < 6; i++)
+        for (int i = 0; i < 4; i++)
         {
-            idleLeft[i] = new GreenfootImage("tile0" + (i+1) + ".png");
+            idleLeft[i] = new GreenfootImage("idle0" + (i + 1) + ".png");
             idleLeft[i].mirrorHorizontally();
         }
+        for (int i = 0; i < 6; i++)
+        {
+            moveRight[i] = new GreenfootImage("tile0" + (i + 1) + ".png");
+        }
+        for (int i = 0; i < 6; i++)
+        {
+            moveLeft[i] = new GreenfootImage("tile0" + (i + 1) + ".png");
+            moveLeft[i].mirrorHorizontally();
+        }
         setImage(idleRight[0]);
-        timer.scheduleAtFixedRate(new TimerTask() 
+        timer.scheduleAtFixedRate(new TimerTask()
         {
             @Override
-            public void run() 
+            public void run()
             {
-                animateElephant();
+                animatePlayer();
             }
         }, 100, 100);
     }
@@ -54,18 +66,39 @@ public class Player extends Actor
     }
 
     int imageIndex = 0;
-    public void animateElephant()
+    public void animatePlayer()
     {
-        if(facing.equals("right"))
+        GreenfootImage[] images;
+
+        if (isMoving)
         {
-            setImage(idleRight[imageIndex]);
-            imageIndex = (imageIndex + 1) % idleRight.length;
+            if (facing.equals("right"))
+            {
+                images = moveRight;
+            }
+            else
+            {
+                images = moveLeft;
+            }
         }
         else
         {
-            setImage(idleLeft[imageIndex]);
-            imageIndex = (imageIndex + 1) % idleLeft.length;
+            if (facing.equals("right"))
+            {
+                images = idleRight;
+            }
+            else
+            {
+                images = idleLeft;
+            }
         }
+        if (imageIndex >= images.length)
+        {
+            imageIndex = 0;
+        }
+
+        setImage(images[imageIndex]);
+        imageIndex = (imageIndex + 1) % images.length;
     }
 
     private void fall()
@@ -76,15 +109,18 @@ public class Player extends Actor
 
     public void mover()
     {
+        isMoving = false;
         if (Greenfoot.isKeyDown("right"))
         {
             move(4);
             facing = "right";
+            isMoving = true;
         }
         if (Greenfoot.isKeyDown("left"))
         {
             move(-4);
             facing = "left";
+            isMoving = true;
         }
         if (Greenfoot.isKeyDown("up") && onGround())
         {
@@ -103,6 +139,7 @@ public class Player extends Actor
 
         return underLeft != null || underRight != null;
     }
+
     private void checkFalling()
     {
         if (!onGround())
@@ -110,29 +147,33 @@ public class Player extends Actor
             fall();
         }
     }
+
     public void changeLives()
     {
-        if(isTouching(Spike.class))
+        if (isTouching(Spike.class))
         {
             lives--;
+            checkLives();
         }
     }
+
     public void checkLives()
     {
-        if(lives==0)
+        if (lives == 0)
         {
             MyWorld world = (MyWorld) getWorld();
             world.gameOver();
             world.removeObject(this);
         }
-        else if(lives == 1)
+        else if (lives > 0)
         {
             respawn();
         }
     }
+
     public void respawn()
     {
         MyWorld world = (MyWorld) getWorld();
-        this.setLocation(world.spawn.getX(),world.spawn.getY());
+        this.setLocation(world.spawn.getX(), world.spawn.getY());
     }
 }
