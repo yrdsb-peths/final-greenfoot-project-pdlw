@@ -170,10 +170,11 @@ public class Player extends Actor
             respawn();
         }
     }
-
     public void respawn()
     {
         MyWorld world = (MyWorld) getWorld();
         this.setLocation(world.spawn.getX(), world.spawn.getY());
+        world.reset();
     }
+
 }

@@ -27,4 +27,12 @@ public class Platform extends Actor
             move(4);
         }
     }
+    public int getPlatformX() 
+    {
+        return getX();
+    }
+    public int getPlatformY() 
+    {
+        return getY();
+    }
 }

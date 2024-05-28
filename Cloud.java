@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.Random;
 /**
  * Write a description of class Cloud here.
  * 
@@ -25,12 +25,21 @@ public class Cloud extends Actor
         int cloudRightEdge = getX() + getImage().getWidth() / 2;
             if(cloudRightEdge <= 0)
             {
-                int oldY = getY();
-                setLocation(800 + getImage().getWidth()/2, oldY);
+                Random random = new Random();
+                setLocation(800 + getImage().getWidth()/2, random.nextInt((160) + 1) + 290);
             }
     }
     public Cloud()
     {
         getImage().scale(100, 65);
     }
+    public int getCloudX() 
+    {
+        return getX();
+    }
+    public int getCloudY() 
+    {
+        return getY();
+    }
+
 }
