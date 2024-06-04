@@ -59,15 +59,6 @@ public class MyWorld extends World
 
     public void prepare()
     {
-        platform1 = new Platform();
-        addObject(platform1, 52, 718);
-        platform2 = new Platform();
-        addObject(platform2, 225, 658);
-        platform3 = new Platform();
-        addObject(platform3, 408, 595);
-        platform4 = new Platform();
-        addObject(platform4, 231, 534);
-
         cloud0 = new Cloud();
         addObject(cloud0, 107, 310);
         cloud1 = new Cloud();
@@ -82,6 +73,27 @@ public class MyWorld extends World
         addObject(cloud4, 775, 358);
         cloud5 = new Cloud();
         addObject(cloud5, 15, 422);
+        
+        platform1 = new Platform();
+        addObject(platform1, 52, 718);
+        platform2 = new Platform();
+        addObject(platform2, 225, 658);
+        platform3 = new Platform();
+        addObject(platform3, 408, 595);
+        platform4 = new Platform();
+        addObject(platform4, 231, 534);
+        Platform platform5 = new Platform();
+        addObject(platform5,576,642);
+        Platform platform6 = new Platform();
+        addObject(platform6,576,495);
+        Platform platform7 = new Platform();
+        addObject(platform7,642,718);
+        platform7.setLocation(656,730);
+        Platform platform8 = new Platform();
+        addObject(platform8,753,533);
+        Platform platform9 = new Platform();
+        addObject(platform9,433,446);
+
     }
 
     public void reset()
@@ -99,5 +111,13 @@ public class MyWorld extends World
         cloud3.setLocation(590, 426);
         cloud4.setLocation(775, 358);
         cloud5.setLocation(15, 422);
+    }
+    
+    public void act()
+    {
+        if(Greenfoot.getRandomNumber(100)<=2)
+        {
+            addObject(new Coin(), getWidth()-1, Greenfoot.getRandomNumber(250)+500);
+        }
     }
 }

@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.Random;
 /**
  * Write a description of class Platform here.
  * 
@@ -26,6 +26,12 @@ public class Platform extends Actor
         {
             move(4);
         }
+        int rightEdge = getX() + getImage().getWidth() / 2;
+            if(rightEdge <= 0)
+            {
+                Random random = new Random();
+                setLocation(800 + getImage().getWidth()/2, random.nextInt((350) + 350));
+            }
     }
     public int getPlatformX() 
     {
