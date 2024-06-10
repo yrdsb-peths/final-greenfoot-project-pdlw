@@ -1,13 +1,14 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.Random;
 public class MyWorld extends World
 {
     private boolean isGameOver = false;
-    Location spawn = new Location(52, 690);
+    Location spawn = new Location(100, 690);
     private Platform platform1;
     private Platform platform2;
     private Platform platform3;
-    private Platform platform4;
+    private Platform platform5;
+    private Platform platform7;
     private Cloud cloud0;
     private Cloud cloud1;
     private Cloud cloud2;
@@ -73,41 +74,30 @@ public class MyWorld extends World
         addObject(cloud4, 775, 358);
         cloud5 = new Cloud();
         addObject(cloud5, 15, 422);
-        
+
         platform1 = new Platform();
-        addObject(platform1, 52, 718);
+        addObject(platform1, 70, 718);
         platform2 = new Platform();
         addObject(platform2, 225, 658);
         platform3 = new Platform();
         addObject(platform3, 408, 595);
-        platform4 = new Platform();
-        addObject(platform4, 231, 534);
-        Platform platform5 = new Platform();
+        platform5 = new Platform();
         addObject(platform5,576,642);
-        Platform platform6 = new Platform();
-        addObject(platform6,576,495);
-        Platform platform7 = new Platform();
-        addObject(platform7,642,718);
-        platform7.setLocation(656,730);
-        Platform platform8 = new Platform();
-        addObject(platform8,753,533);
-        Platform platform9 = new Platform();
-        addObject(platform9,433,446);
-
+        platform7 = new Platform();
+        addObject(platform7,709,708);
     }
 
     public void reset()
     {
-        platform1.setLocation(52, 718);
+        platform1.setLocation(70, 718);
         platform2.setLocation(225, 658);
         platform3.setLocation(408, 595);
-        platform4.setLocation(231, 534);
+        platform5.setLocation(576,642);
+        platform7.setLocation(709,708);
         
         cloud0.setLocation(107, 310);
         cloud1.setLocation(322, 381);
-        cloud1.getImage().scale(70,40);
         cloud2.setLocation(569, 290);
-        cloud2.getImage().scale(130,100);
         cloud3.setLocation(590, 426);
         cloud4.setLocation(775, 358);
         cloud5.setLocation(15, 422);
@@ -115,9 +105,13 @@ public class MyWorld extends World
     
     public void act()
     {
-        if(Greenfoot.getRandomNumber(100)<=2)
+        if(Greenfoot.getRandomNumber(300)<=1)
         {
-            addObject(new Coin(), getWidth()-1, Greenfoot.getRandomNumber(250)+500);
+            Random random = new Random();
+                int minY = 445;
+                int maxY = 730;
+                int randomY = random.nextInt(maxY - minY + 1) + minY;
+                addObject(new Coin(), getWidth()-1, randomY);
         }
     }
 }

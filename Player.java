@@ -112,13 +112,13 @@ public class Player extends Actor
         isMoving = false;
         if (Greenfoot.isKeyDown("right"))
         {
-            move(4);
+            //move(1);
             facing = "right";
             isMoving = true;
         }
         if (Greenfoot.isKeyDown("left"))
         {
-            move(-4);
+            //move(-1);
             facing = "left";
             isMoving = true;
         }
@@ -175,6 +175,14 @@ public class Player extends Actor
         MyWorld world = (MyWorld) getWorld();
         this.setLocation(world.spawn.getX(), world.spawn.getY());
         world.reset();
+    }
+    public void collect()
+    {
+        Actor coin = getOneIntersectingObject(Coin.class);
+        if (coin!=null)
+        {
+            getWorld().removeObject(coin);
+        }
     }
 
 }

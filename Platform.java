@@ -20,17 +20,20 @@ public class Platform extends Actor
     {
         if (Greenfoot.isKeyDown("right"))
         {
-            move(-4);
+            move(-6);
         }
         if (Greenfoot.isKeyDown("left"))
         {
-            move(4);
+            move(6);
         }
         int rightEdge = getX() + getImage().getWidth() / 2;
-            if(rightEdge <= 0)
+            if (rightEdge <= 0) 
             {
                 Random random = new Random();
-                setLocation(800 + getImage().getWidth()/2, random.nextInt((350) + 350));
+                int minY = 445;
+                int maxY = 730;
+                int randomY = random.nextInt(maxY - minY + 1) + minY;
+                setLocation(800 + getImage().getWidth() / 2, randomY);
             }
     }
     public int getPlatformX() 
