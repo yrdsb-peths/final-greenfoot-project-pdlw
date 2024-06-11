@@ -2,6 +2,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.Random;
 public class MyWorld extends World
 {
+    public int score;
+    public int lives = 2;
+    Label scoreLabel;
+    Label livesLabel;
     private boolean isGameOver = false;
     Location spawn = new Location(100, 690);
     private Platform platform1;
@@ -21,17 +25,35 @@ public class MyWorld extends World
         // Create a new world with 800x800 cells with a cell size of 1x1 pixels.
         super(800, 800, 1, false);
         prepare();
+        scoreLabel = new Label("Berries Collected: " + score, 60);
+        scoreLabel.setFillColor(Color.PINK);
+        addObject(scoreLabel, 250, 40);
+        livesLabel = new Label("Lives Left: " + lives, 60);
+        livesLabel.setFillColor(Color.PINK);
+        addObject(livesLabel, 165, 100);
         Greenfoot.setSpeed(45);
         Player player = new Player();
         addObject(player, spawn.getX(), spawn.getY());
         player.getImage().scale(35,35);
     }
-
+    public void increaseScore() 
+    {
+        score++;
+        scoreLabel.setValue("Berries Collected: " + score);
+    }
+    public void decreaseLives() 
+    {
+        lives--;
+        livesLabel.setValue("Lives Left: " + lives);
+    }
     public void gameOver()
     {
         if (!isGameOver) {
             isGameOver = true;
-            Label gameOverLabel = new Label("Game Over", 100);
+            reset();
+            Label gameOverLabel = new Label("Game Over", 150);
+            gameOverLabel.setFillColor(Color.RED);
+            gameOverLabel.setLineColor(Color.RED);
             addObject(gameOverLabel, 400, 400);
             Greenfoot.stop();
         }

@@ -56,6 +56,7 @@ public class Player extends Actor
         if (getY() >= 799)
         {
             lives--;
+            world.decreaseLives();
             checkLives();
         }
         else
@@ -190,6 +191,7 @@ public class Player extends Actor
             MyWorld world = (MyWorld) getWorld();
             getWorld().removeObject(coin);
             collect++;
+            world.increaseScore();
         }
         if(collect==10)
         {
