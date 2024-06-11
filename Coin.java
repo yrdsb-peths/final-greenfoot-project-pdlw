@@ -22,5 +22,10 @@ public class Coin extends Actor
         {
             move(6);
         }
+        int rightEdge = getX() + getImage().getWidth() / 2;
+        if (rightEdge <= 0) 
+            {
+                getWorld().removeObject(this);
+            }
     }
 }

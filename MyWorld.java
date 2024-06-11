@@ -7,8 +7,8 @@ public class MyWorld extends World
     private Platform platform1;
     private Platform platform2;
     private Platform platform3;
+    private Platform platform4;
     private Platform platform5;
-    private Platform platform7;
     private Cloud cloud0;
     private Cloud cloud1;
     private Cloud cloud2;
@@ -33,6 +33,7 @@ public class MyWorld extends World
             isGameOver = true;
             Label gameOverLabel = new Label("Game Over", 100);
             addObject(gameOverLabel, 400, 400);
+            Greenfoot.stop();
         }
     }
 
@@ -81,10 +82,10 @@ public class MyWorld extends World
         addObject(platform2, 225, 658);
         platform3 = new Platform();
         addObject(platform3, 408, 595);
+        platform4 = new Platform();
+        addObject(platform4,576,642);
         platform5 = new Platform();
-        addObject(platform5,576,642);
-        platform7 = new Platform();
-        addObject(platform7,709,708);
+        addObject(platform5,709,708);
     }
 
     public void reset()
@@ -92,8 +93,8 @@ public class MyWorld extends World
         platform1.setLocation(70, 718);
         platform2.setLocation(225, 658);
         platform3.setLocation(408, 595);
-        platform5.setLocation(576,642);
-        platform7.setLocation(709,708);
+        platform4.setLocation(576,642);
+        platform5.setLocation(709,708);
         
         cloud0.setLocation(107, 310);
         cloud1.setLocation(322, 381);

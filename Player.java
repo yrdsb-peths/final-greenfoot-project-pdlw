@@ -51,10 +51,7 @@ public class Player extends Actor
 
     public void act()
     {
-        if (getWorld() == null) 
-        {
-            return;
-        }
+        
         MyWorld world = (MyWorld) getWorld();
         if (getY() >= 799)
         {
@@ -111,7 +108,6 @@ public class Player extends Actor
         setLocation(getX(), getY() + vSpeed);
         vSpeed += acceleration;
     }
-
     public void mover()
     {
         isMoving = false;
@@ -191,12 +187,14 @@ public class Player extends Actor
         Actor coin = getOneIntersectingObject(Coin.class);
         if (coin != null)
         {
+            MyWorld world = (MyWorld) getWorld();
             getWorld().removeObject(coin);
             collect++;
         }
         if(collect==10)
         {
-            Greenfoot.stop();
+            MyWorld world = (MyWorld) getWorld();
+            world.gameOver();
         }
     }
 }
