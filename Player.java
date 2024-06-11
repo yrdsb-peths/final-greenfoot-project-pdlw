@@ -8,7 +8,7 @@ public class Player extends Actor
     private int acceleration = 1;
     private int jumpHeight = -15;
     private int lives = 2;
-
+    private int collect = 0;
     GreenfootImage[] idleLeft = new GreenfootImage[4];
     GreenfootImage[] idleRight = new GreenfootImage[4];
     GreenfootImage[] moveLeft = new GreenfootImage[6];
@@ -51,6 +51,10 @@ public class Player extends Actor
 
     public void act()
     {
+        if (getWorld() == null) 
+        {
+            return;
+        }
         MyWorld world = (MyWorld) getWorld();
         if (getY() >= 799)
         {
@@ -63,6 +67,7 @@ public class Player extends Actor
             checkFalling();
             changeLives();
         }
+        collect();
     }
 
     int imageIndex = 0;
@@ -178,11 +183,20 @@ public class Player extends Actor
     }
     public void collect()
     {
+        if (getWorld() == null) 
+        {
+            return;
+        }
+
         Actor coin = getOneIntersectingObject(Coin.class);
-        if (coin!=null)
+        if (coin != null)
         {
             getWorld().removeObject(coin);
+            collect++;
+        }
+        if(collect==10)
+        {
+            Greenfoot.stop();
         }
     }
-
 }

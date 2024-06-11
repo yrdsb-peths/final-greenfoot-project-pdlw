@@ -16,11 +16,11 @@ public class Coin extends Actor
     {
         if (Greenfoot.isKeyDown("right"))
         {
-            move(-4);
+            move(-6);
         }
         if (Greenfoot.isKeyDown("left"))
         {
-            move(4);
+            move(6);
         }
     }
 }
