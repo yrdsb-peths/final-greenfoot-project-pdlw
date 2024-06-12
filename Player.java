@@ -196,7 +196,7 @@ public class Player extends Actor
         if(collect==10)
         {
             MyWorld world = (MyWorld) getWorld();
-            world.gameOver();
+            world.gameWin();
         }
     }
 }

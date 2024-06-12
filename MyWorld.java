@@ -1,6 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.Random;
-public class MyWorld extends World
+
+public class MyWorld extends World 
 {
     public int score;
     public int lives = 2;
@@ -19,69 +20,91 @@ public class MyWorld extends World
     private Cloud cloud3;
     private Cloud cloud4;
     private Cloud cloud5;
+    private Player player;
 
-    public MyWorld()
+    public MyWorld() 
     {    
         // Create a new world with 800x800 cells with a cell size of 1x1 pixels.
         super(800, 800, 1, false);
         prepare();
         scoreLabel = new Label("Berries Collected: " + score, 60);
-        scoreLabel.setFillColor(Color.PINK);
-        addObject(scoreLabel, 250, 40);
+        scoreLabel.setFillColor(Color.BLUE);
+        addObject(scoreLabel, 250, 300);
         livesLabel = new Label("Lives Left: " + lives, 60);
-        livesLabel.setFillColor(Color.PINK);
-        addObject(livesLabel, 165, 100);
+        livesLabel.setFillColor(Color.ORANGE);
+        addObject(livesLabel, 165, 360);
         Greenfoot.setSpeed(45);
-        Player player = new Player();
+        
+        player = new Player();
         addObject(player, spawn.getX(), spawn.getY());
         player.getImage().scale(35,35);
     }
+
     public void increaseScore() 
     {
         score++;
         scoreLabel.setValue("Berries Collected: " + score);
     }
+
     public void decreaseLives() 
     {
         lives--;
         livesLabel.setValue("Lives Left: " + lives);
     }
-    public void gameOver()
+
+    public void gameOver() 
     {
-        if (!isGameOver) {
+        if (!isGameOver) 
+        {
             isGameOver = true;
             reset();
             Label gameOverLabel = new Label("Game Over", 150);
             gameOverLabel.setFillColor(Color.RED);
             gameOverLabel.setLineColor(Color.RED);
-            addObject(gameOverLabel, 400, 400);
+            addObject(gameOverLabel, 400, 500);
             Greenfoot.stop();
         }
+    }
+
+    public void gameWin() 
+    {
+        respawn();
+        Label winLabel = new Label("You Won!", 150);
+        winLabel.setFillColor(Color.RED);
+        winLabel.setLineColor(Color.RED);
+        addObject(winLabel, 400, 500);
+        Greenfoot.stop();
+    }
+
+    public void respawn() 
+    {
+        player.setLocation(spawn.getX(), spawn.getY());
+        reset();
     }
 
     public class Location 
     {
         private int x;
         private int y;
-    
+
         public Location(int x, int y) 
         {
             this.x = x;
             this.y = y;
         }
-    
+
         public int getX() 
         {
             return x;
         }
-    
+
         public int getY() 
         {
             return y;
         }
     }
 
-    public void prepare()
+    public void prepare() 
     {
         cloud0 = new Cloud();
         addObject(cloud0, 107, 310);
@@ -110,7 +133,7 @@ public class MyWorld extends World
         addObject(platform5,709,708);
     }
 
-    public void reset()
+    public void reset() 
     {
         platform1.setLocation(70, 718);
         platform2.setLocation(225, 658);
@@ -125,16 +148,15 @@ public class MyWorld extends World
         cloud4.setLocation(775, 358);
         cloud5.setLocation(15, 422);
     }
-    
-    public void act()
-    {
-        if(Greenfoot.getRandomNumber(300)<=1)
+
+    public void act() {
+        if (Greenfoot.getRandomNumber(100) <= 1) 
         {
             Random random = new Random();
-                int minY = 445;
-                int maxY = 730;
-                int randomY = random.nextInt(maxY - minY + 1) + minY;
-                addObject(new Coin(), getWidth()-1, randomY);
+            int minY = 445;
+            int maxY = 730;
+            int randomY = random.nextInt(maxY - minY + 1) + minY;
+            addObject(new Coin(), getWidth()-1, randomY);
         }
     }
 }
