@@ -4,10 +4,10 @@ import java.util.Random;
 public class WinWorld extends World 
 {
     Label titleLabel = new Label("You Win!", 150);
-    Label endless = new Label("Play Endless", 70);
-    Label l2 = new Label("Play Level 2", 70);
+    Label hardMode = new Label("Hard Mode", 70);
+    Label menu = new Label("Back To Menu", 70);
     Label instructions = new Label("^ press enter to select ^ \n \u2191 \u2193 to navigate", 70);
-    private boolean endlessSelected = true;
+    private boolean hardSelectedted = true;
     public WinWorld() 
     {    
         // Create a new world with 800x800 cells with a cell size of 1x1 pixels.
@@ -15,15 +15,15 @@ public class WinWorld extends World
         addObject(titleLabel, getWidth()/2, 380);
         titleLabel.setFillColor(Color.WHITE);
         titleLabel.setLineColor(Color.PINK);
-        addObject(l2, getWidth()/2, 540);
-        l2.setFillColor(Color.WHITE);
-        l2.setLineColor(Color.BLACK);
+        addObject(menu, getWidth()/2, 540);
+        menu.setFillColor(Color.WHITE);
+        menu.setLineColor(Color.BLACK);
         addObject(instructions, getWidth()/2, 650);
         instructions.setFillColor(Color.WHITE);
         instructions.setLineColor(Color.BLACK);
-        addObject(endless, getWidth()/2, 475);
-        endless.setFillColor(Color.YELLOW);
-        endless.setLineColor(Color.BLACK);
+        addObject(hardMode, getWidth()/2, 475);
+        hardMode.setFillColor(Color.YELLOW);
+        hardMode.setLineColor(Color.BLACK);
         Greenfoot.setSpeed(45);
     }
     public void act()
@@ -32,37 +32,38 @@ public class WinWorld extends World
     }
     public void checkKeys()
     {
-        if(Greenfoot.isKeyDown("up") && endlessSelected == false)
+        if(Greenfoot.isKeyDown("down") && hardSelectedted == false)
         {
-           endlessSelected = !endlessSelected;
+           hardSelectedted = !hardSelectedted;
         }
-        if(Greenfoot.isKeyDown("down") && endlessSelected == true)
+        if(Greenfoot.isKeyDown("up") && hardSelectedted == true)
         {
-            endlessSelected = !endlessSelected;
+            hardSelectedted = !hardSelectedted;
         }
         
-        if(!endlessSelected)
+        if(!hardSelectedted)
         {
-            endless.setFillColor(Color.WHITE);
-            endless.setLineColor(Color.BLACK);
-            l2.setFillColor(Color.YELLOW);
-            l2.setLineColor(Color.BLACK);
+            menu.setFillColor(Color.WHITE);
+            menu.setLineColor(Color.BLACK);
+            hardMode.setFillColor(Color.YELLOW);
+            hardMode.setLineColor(Color.BLACK);
             if(Greenfoot.isKeyDown("enter"))
             {
-                gameOver gameWorld = new gameOver(false);
+                TitleScreen gameWorld = new TitleScreen();
                 Greenfoot.setWorld(gameWorld);
             }
         }
         else
         {
-            l2.setFillColor(Color.WHITE);
-            l2.setLineColor(Color.BLACK);
-            endless.setFillColor(Color.YELLOW);
-            endless.setLineColor(Color.BLACK);
+            hardMode.setFillColor(Color.WHITE);
+            hardMode.setLineColor(Color.BLACK);
+            menu.setFillColor(Color.YELLOW);
+            menu.setLineColor(Color.BLACK);
             if(Greenfoot.isKeyDown("enter"))
             {
-                TitleScreen gameWorld = new TitleScreen();
+                MyWorld gameWorld = new MyWorld();
                 Greenfoot.setWorld(gameWorld);
+                gameWorld.player.easy = false;
             }
         }
     }

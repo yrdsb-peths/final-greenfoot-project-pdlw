@@ -23,7 +23,7 @@ public class MyWorld extends World
     private Cloud cloud3;
     private Cloud cloud4;
     private Cloud cloud5;
-    private Player player;
+    public Player player;
 
     public MyWorld() 
     {    
@@ -53,24 +53,49 @@ public class MyWorld extends World
     public void increaseScore() 
     {
         score++;
-        if(score<=14)
+        if(player.easy)
         {
-        GreenfootSound pointSound = new GreenfootSound("pointer.mp3");
-        pointSound.play();
+            if(score<=14)
+            {
+                GreenfootSound pointSound = new GreenfootSound("pointer.mp3");
+                pointSound.play();
+            }
+            else
+            {
+                GreenfootSound pointSound = new GreenfootSound("complete.mp3");
+                pointSound.play();
+            }
+            scoreLabel.setValue("Berries Collected: " + score);
+            if (score > hiScore) 
+            {
+                newHigh = true;
+                hiScore = score;
+                hiScoreLabel.setLocation(245,420);
+                hiScoreLabel.setValue("New High Score!: " + hiScore);
+                hiScoreLabel.setFillColor(Color.RED);
+            }
         }
-        else
+        else if(player.easy==false)
         {
-            GreenfootSound pointSound = new GreenfootSound("complete.mp3");
-            pointSound.play();
-        }
-        scoreLabel.setValue("Berries Collected: " + score);
-        if (score > hiScore) 
-        {
-            newHigh = true;
-            hiScore = score;
-            hiScoreLabel.setLocation(245,420);
-            hiScoreLabel.setValue("New High Score!: " + hiScore);
-            hiScoreLabel.setFillColor(Color.RED);
+            if(score<=29)
+            {
+                GreenfootSound pointSound = new GreenfootSound("pointer.mp3");
+                pointSound.play();
+            }
+            else
+            {
+                GreenfootSound pointSound = new GreenfootSound("complete.mp3");
+                pointSound.play();
+            }
+            scoreLabel.setValue("Berries Collected: " + score);
+            if (score > hiScore) 
+            {
+                newHigh = true;
+                hiScore = score;
+                hiScoreLabel.setLocation(245,420);
+                hiScoreLabel.setValue("New High Score!: " + hiScore);
+                hiScoreLabel.setFillColor(Color.RED);
+            }
         }
     }
 
@@ -176,7 +201,7 @@ public class MyWorld extends World
             {
                 Random random = new Random();
                 int minY = Platform.calculateMinY();
-                int maxY = 730;
+                int maxY = 700;
                 int randomY = random.nextInt(maxY - minY + 1) + minY;
                 if(randomY > player.getY())
                 {
@@ -185,16 +210,5 @@ public class MyWorld extends World
                 addObject(new Coin(), getWidth()-1, randomY);
             }
         }
-    }
-    public void spikeSpawn()
-    {
-        /*if (Greenfoot.getRandomNumber(300) <= 1) 
-        {
-            Random random = new Random();
-            int minY = 445;
-            int maxY = 730;
-            int randomY = random.nextInt(maxY - minY + 1) + minY;
-            addObject(new Spike(), getWidth()-1, randomY);
-        }*/
     }
 }

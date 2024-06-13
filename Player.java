@@ -4,11 +4,13 @@ import java.util.TimerTask;
 
 public class Player extends Actor
 {
+    MyWorld world = (MyWorld) getWorld();
     private int vSpeed = 0;
     private int acceleration = 1;
     private int jumpHeight = -15;
     private int lives = 2;
     private int collect = 0;
+    public boolean easy = true;
     GreenfootImage[] idleLeft = new GreenfootImage[4];
     GreenfootImage[] idleRight = new GreenfootImage[4];
     GreenfootImage[] moveLeft = new GreenfootImage[6];
@@ -51,7 +53,6 @@ public class Player extends Actor
 
     public void act()
     {
-        
         MyWorld world = (MyWorld) getWorld();
         if (getY() >= 799)
         {
@@ -63,7 +64,6 @@ public class Player extends Actor
         {
             mover();
             checkFalling();
-            changeLives();
         }
         collect();
     }
@@ -109,6 +109,7 @@ public class Player extends Actor
         setLocation(getX(), getY() + vSpeed);
         vSpeed += acceleration;
     }
+    
     public void mover()
     {
         isMoving = false;
@@ -126,6 +127,8 @@ public class Player extends Actor
         }
         if (Greenfoot.isKeyDown("up") && onGround())
         {
+            GreenfootSound pointSound = new GreenfootSound("jump.mp3");
+            pointSound.play();
             vSpeed = jumpHeight;
             fall();
         }
@@ -149,26 +152,17 @@ public class Player extends Actor
             fall();
         }
     }
-
-    public void changeLives()
-    {
-        if (isTouching(Spike.class))
-        {
-            lives--;
-            checkLives();
-        }
-    }
-
     public void checkLives()
     {
         if (lives == 0)
         {
-            MyWorld world = (MyWorld) getWorld();
             world.gameOver();
             world.removeObject(this);
         }
         else if (lives > 0)
         {
+            GreenfootSound pointSound = new GreenfootSound("death.mp3");
+            pointSound.play();
             respawn();
         }
     }
@@ -180,6 +174,7 @@ public class Player extends Actor
     }
     public void collect()
     {
+        MyWorld world = (MyWorld) getWorld();
         if (getWorld() == null) 
         {
             return;
@@ -188,16 +183,23 @@ public class Player extends Actor
         Actor coin = getOneIntersectingObject(Coin.class);
         if (coin != null)
         {
-            MyWorld world = (MyWorld) getWorld();
             getWorld().removeObject(coin);
             collect++;
             world.increaseScore();
         }
-        if(collect==15)
+        if(easy)
         {
-            
-            MyWorld world = (MyWorld) getWorld();
-            world.gameWin();
+            if(collect==15)
+            {
+                world.gameWin();
+            }
+        }
+        else if(easy==false)
+        {
+            if(collect==30)
+            {
+                world.gameWin();
+            }
         }
     }
 }
