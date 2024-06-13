@@ -7,7 +7,7 @@ public class WinWorld extends World
     Label hardMode = new Label("Hard Mode", 70);
     Label menu = new Label("Back To Menu", 70);
     Label instructions = new Label("^ press enter to select ^ \n \u2191 \u2193 to navigate", 70);
-    private boolean hardSelectedted = true;
+    private boolean hardSelected = true;
     public WinWorld() 
     {    
         // Create a new world with 800x800 cells with a cell size of 1x1 pixels.
@@ -32,21 +32,21 @@ public class WinWorld extends World
     }
     public void checkKeys()
     {
-        if(Greenfoot.isKeyDown("down") && hardSelectedted == false)
+        if(Greenfoot.isKeyDown("down") && hardSelected == true)
         {
-           hardSelectedted = !hardSelectedted;
+           hardSelected = !hardSelected;
         }
-        if(Greenfoot.isKeyDown("up") && hardSelectedted == true)
+        if(Greenfoot.isKeyDown("up") && hardSelected == false)
         {
-            hardSelectedted = !hardSelectedted;
+            hardSelected = !hardSelected;
         }
         
-        if(!hardSelectedted)
+        if(!hardSelected)
         {
-            menu.setFillColor(Color.WHITE);
-            menu.setLineColor(Color.BLACK);
-            hardMode.setFillColor(Color.YELLOW);
+            hardMode.setFillColor(Color.WHITE);
             hardMode.setLineColor(Color.BLACK);
+            menu.setFillColor(Color.YELLOW);
+            menu.setLineColor(Color.BLACK);
             if(Greenfoot.isKeyDown("enter"))
             {
                 TitleScreen gameWorld = new TitleScreen();
@@ -55,10 +55,10 @@ public class WinWorld extends World
         }
         else
         {
-            hardMode.setFillColor(Color.WHITE);
-            hardMode.setLineColor(Color.BLACK);
-            menu.setFillColor(Color.YELLOW);
+            menu.setFillColor(Color.WHITE);
             menu.setLineColor(Color.BLACK);
+            hardMode.setFillColor(Color.YELLOW);
+            hardMode.setLineColor(Color.BLACK);
             if(Greenfoot.isKeyDown("enter"))
             {
                 MyWorld gameWorld = new MyWorld();

@@ -20,23 +20,49 @@ public class Platform extends Actor
         getImage().scale(100, 35);
         platforms.add(this);
     }
-    public void act() {
-        if (Greenfoot.isKeyDown("right")) 
+    public void act() 
+    {
+        MyWorld gameWorld = new MyWorld();
+        if(gameWorld.player.easy)
         {
-            move(-6);
+            if (Greenfoot.isKeyDown("right")) 
+            {
+                move(-6);
+            }
+            if (Greenfoot.isKeyDown("left")) 
+            {
+                move(6);
+            }
+            int rightEdge = getX() + getImage().getWidth() / 2;
+            if (rightEdge <= 0) 
+            {
+                int maxY = 730;
+                int minY = calculateMinY();
+                Random random = new Random();
+                int randomY = random.nextInt(maxY - minY + 1) + minY;
+                setLocation(800 + getImage().getWidth() / 2, randomY);
+            }
         }
-        if (Greenfoot.isKeyDown("left")) 
+        
+        else if(gameWorld.player.easy==false)
         {
-            move(6);
-        }
-        int rightEdge = getX() + getImage().getWidth() / 2;
-        if (rightEdge <= 0) 
-        {
-            int maxY = 730;
-            int minY = calculateMinY();
-            Random random = new Random();
-            int randomY = random.nextInt(maxY - minY + 1) + minY;
-            setLocation(800 + getImage().getWidth() / 2, randomY);
+            if (Greenfoot.isKeyDown("right")) 
+            {
+                move(-12);
+            }
+            if (Greenfoot.isKeyDown("left")) 
+            {
+                move(12);
+            }
+            int rightEdge = getX() + getImage().getWidth() / 2;
+            if (rightEdge <= 0) 
+            {
+                int maxY = 730;
+                int minY = calculateMinY();
+                Random random = new Random();
+                int randomY = random.nextInt(maxY - minY + 1) + minY;
+                setLocation(800 + getImage().getWidth() / 2, randomY);
+            }
         }
     }
 
