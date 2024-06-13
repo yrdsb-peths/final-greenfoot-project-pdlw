@@ -24,6 +24,12 @@ public class TitleScreen extends World
         addObject(titleLabel, getWidth()/2, 310);
         addObject(instructions, getWidth()/4 , 700);
         addObject(instructions2, getWidth()/4 +15, 650);
+        instructions.setFillColor(Color.WHITE);
+        instructions.setLineColor(Color.BLUE);
+        instructions2.setFillColor(Color.WHITE);
+        instructions2.setLineColor(Color.BLUE);
+        titleLabel.setFillColor(Color.WHITE);
+        titleLabel.setLineColor(Color.PINK);
         prepare();
     }
 
@@ -33,7 +39,6 @@ public class TitleScreen extends World
         {
             MyWorld gameWorld = new MyWorld();
             Greenfoot.setWorld(gameWorld);
-            Greenfoot.delay(30);
         }
     }
     

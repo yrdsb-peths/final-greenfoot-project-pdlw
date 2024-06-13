@@ -3,10 +3,13 @@ import java.util.Random;
 
 public class MyWorld extends World 
 {
+    public boolean newHigh = false;
     public int score;
+    public static int hiScore;
     public int lives = 2;
     Label scoreLabel;
     Label livesLabel;
+    Label hiScoreLabel;
     private boolean isGameOver = false;
     Location spawn = new Location(100, 690);
     private Platform platform1;
@@ -27,9 +30,16 @@ public class MyWorld extends World
         // Create a new world with 800x800 cells with a cell size of 1x1 pixels.
         super(800, 800, 1, false);
         prepare();
+        if(score>=hiScore)
+        {
+           hiScore = score;
+        }
         scoreLabel = new Label("Berries Collected: " + score, 60);
         scoreLabel.setFillColor(Color.BLUE);
         addObject(scoreLabel, 250, 300);
+        hiScoreLabel = new Label("High Score: " + hiScore, 60);
+        hiScoreLabel.setFillColor(Color.BLUE);
+        addObject(hiScoreLabel, 180, 420);
         livesLabel = new Label("Lives Left: " + lives, 60);
         livesLabel.setFillColor(Color.ORANGE);
         addObject(livesLabel, 165, 360);
@@ -44,6 +54,14 @@ public class MyWorld extends World
     {
         score++;
         scoreLabel.setValue("Berries Collected: " + score);
+        if (score > hiScore) 
+        {
+            newHigh = true;
+            hiScore = score;
+            hiScoreLabel.setLocation(225,420);
+            hiScoreLabel.setValue("New High Score!: " + hiScore);
+            hiScoreLabel.setFillColor(Color.RED);
+        }
     }
 
     public void decreaseLives() 
@@ -56,12 +74,8 @@ public class MyWorld extends World
     {
         if (!isGameOver) 
         {
-            isGameOver = true;
-            reset();
-            Label gameOverLabel = new Label("Game Over", 150);
-            gameOverLabel.setFillColor(Color.RED);
-            gameOverLabel.setLineColor(Color.RED);
-            addObject(gameOverLabel, 400, 500);
+            gameOver over = new gameOver(newHigh);
+            Greenfoot.setWorld(over);
             Greenfoot.stop();
         }
     }
@@ -69,10 +83,13 @@ public class MyWorld extends World
     public void gameWin() 
     {
         respawn();
-        Label winLabel = new Label("You Won!", 150);
-        winLabel.setFillColor(Color.RED);
-        winLabel.setLineColor(Color.RED);
+        /*Label winLabel = new Label("You Won!", 150);
+        winLabel.setFillColor(Color.BLUE);
+        winLabel.setLineColor(Color.BLUE);
         addObject(winLabel, 400, 500);
+        */
+        WinWorld gameWorld = new WinWorld();
+        Greenfoot.setWorld(gameWorld);
         Greenfoot.stop();
     }
 

@@ -21,14 +21,17 @@ public class Platform extends Actor
         platforms.add(this);
     }
     public void act() {
-        if (Greenfoot.isKeyDown("right")) {
+        if (Greenfoot.isKeyDown("right")) 
+        {
             move(-6);
         }
-        if (Greenfoot.isKeyDown("left")) {
+        if (Greenfoot.isKeyDown("left")) 
+        {
             move(6);
         }
         int rightEdge = getX() + getImage().getWidth() / 2;
-        if (rightEdge <= 0) {
+        if (rightEdge <= 0) 
+        {
             int maxY = 730;
             int minY = calculateMinY();
             Random random = new Random();
