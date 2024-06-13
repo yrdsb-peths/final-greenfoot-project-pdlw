@@ -22,6 +22,10 @@ public class Player extends Actor
 
     public Player()
     {
+        if(easy==false)
+        {
+            lives = 1;
+        }
         for (int i = 0; i < 4; i++)
         {
             idleRight[i] = new GreenfootImage("idle0" + (i + 1) + ".png");
@@ -122,8 +126,11 @@ public class Player extends Actor
         if (Greenfoot.isKeyDown("left"))
         {
             //move(-1);
-            facing = "left";
-            isMoving = true;
+            if(easy)
+            {
+                facing = "left";
+                isMoving = true;
+                }
         }
         if (Greenfoot.isKeyDown("up") && onGround())
         {
@@ -134,16 +141,19 @@ public class Player extends Actor
         }
     }
 
-    private boolean onGround()
+    private boolean onGround() 
     {
         int imageHeight = getImage().getHeight();
         int imageWidth = getImage().getWidth();
-
-        Actor underLeft = getOneObjectAtOffset(-imageWidth / 2, imageHeight / 2, Platform.class);
-        Actor underRight = getOneObjectAtOffset(imageWidth / 2, imageHeight / 2, Platform.class);
-
-        return underLeft != null || underRight != null;
+    
+        Actor underLeftPlatform = getOneObjectAtOffset(-imageWidth / 2, imageHeight / 2, Platform.class);
+        Actor underRightPlatform = getOneObjectAtOffset(imageWidth / 2, imageHeight / 2, Platform.class);
+        Actor underLeftCopyOfPlatform = getOneObjectAtOffset(-imageWidth / 2, imageHeight / 2, CopyOfPlatform.class);
+        Actor underRightCopyOfPlatform = getOneObjectAtOffset(imageWidth / 2, imageHeight / 2, CopyOfPlatform.class);
+    
+        return underLeftPlatform != null || underRightPlatform != null || underLeftCopyOfPlatform != null || underRightCopyOfPlatform != null;
     }
+
 
     private void checkFalling()
     {
@@ -191,6 +201,7 @@ public class Player extends Actor
         if(easy)
         {
             Platform.ease = true;
+            Coin.ease = true;
             if(collect==15)
             {
                 world.gameWin();
@@ -199,10 +210,7 @@ public class Player extends Actor
         else if(easy==false)
         {
             Platform.ease = false;
-            if(collect==30)
-            {
-                world.gameWin();
-            }
+            Coin.ease = false;
         }
     }
 }

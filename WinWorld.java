@@ -51,6 +51,7 @@ public class WinWorld extends World
             {
                 TitleScreen gameWorld = new TitleScreen();
                 Greenfoot.setWorld(gameWorld);
+                Greenfoot.delay(25);
             }
         }
         else

@@ -24,12 +24,12 @@ public class gameOver extends World
             l2.setLineColor(Color.BLACK);
         }
         MyWorld gameWorld = new MyWorld();
+        TitleScreen title = new TitleScreen();
         if(gameWorld.player.easy)
         {
             if(soundFinished && Greenfoot.isKeyDown("space")) 
             {
-                gameWorld.player.easy = false;
-                Greenfoot.setWorld(gameWorld);
+                Greenfoot.setWorld(title);
             }
         }
     }
@@ -43,7 +43,7 @@ public class gameOver extends World
             {
                 hiScoreLabel = new Label("But you got a new High Score of " + MyWorld.hiScore + "!", 60);
                 hiScoreLabel.setFillColor(Color.BLUE);
-                hiScoreLabel.setLineColor(Color.BLUE);
+                hiScoreLabel.setLineColor(Color.CYAN);
                 addObject(hiScoreLabel, 400, 600);
             }
     }

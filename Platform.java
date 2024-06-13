@@ -60,7 +60,7 @@ public class Platform extends Actor
                 move(6);
             }
         }
-        else
+        else if(ease==false)
         {
             move(-6);
         }

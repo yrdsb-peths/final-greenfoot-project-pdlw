@@ -17,6 +17,7 @@ public class MyWorld extends World
     private Platform platform3;
     private Platform platform4;
     private Platform platform5;
+    private CopyOfPlatform platform9;
     private Cloud cloud0;
     private Cloud cloud1;
     private Cloud cloud2;
@@ -48,6 +49,15 @@ public class MyWorld extends World
         player = new Player();
         addObject(player, spawn.getX(), spawn.getY());
         player.getImage().scale(35,35);
+        if(Platform.ease==false)
+        {
+            platform9 = new CopyOfPlatform();
+            addObject(platform9, 70, 718);
+        }
+        if(Platform.ease==false)
+        {
+            lives=1;
+        }
     }
     public void increaseScore() 
     {
@@ -64,37 +74,20 @@ public class MyWorld extends World
                 GreenfootSound pointSound = new GreenfootSound("complete.mp3");
                 pointSound.play();
             }
-            scoreLabel.setValue("Berries Collected: " + score);
-            if (score > hiScore) 
-            {
-                newHigh = true;
-                hiScore = score;
-                hiScoreLabel.setLocation(245,420);
-                hiScoreLabel.setValue("New High Score!: " + hiScore);
-                hiScoreLabel.setFillColor(Color.RED);
-            }
         }
-        else if(player.easy==false)
+        else
         {
-            if(score<=29)
-            {
-                GreenfootSound pointSound = new GreenfootSound("pointer.mp3");
-                pointSound.play();
-            }
-            else
-            {
-                GreenfootSound pointSound = new GreenfootSound("complete.mp3");
-                pointSound.play();
-            }
-            scoreLabel.setValue("Berries Collected: " + score);
-            if (score > hiScore) 
-            {
-                newHigh = true;
-                hiScore = score;
-                hiScoreLabel.setLocation(245,420);
-                hiScoreLabel.setValue("New High Score!: " + hiScore);
-                hiScoreLabel.setFillColor(Color.RED);
-            }
+            GreenfootSound pointSound = new GreenfootSound("pointer.mp3");
+            pointSound.play();
+        }
+        scoreLabel.setValue("Berries Collected: " + score);
+        if (score > hiScore) 
+        {
+            newHigh = true;
+            hiScore = score;
+            hiScoreLabel.setLocation(245,420);
+            hiScoreLabel.setValue("New High Score!: " + hiScore);
+            hiScoreLabel.setFillColor(Color.RED);
         }
     }
 
@@ -158,7 +151,7 @@ public class MyWorld extends World
         addObject(cloud4, 775, 358);
         cloud5 = new Cloud();
         addObject(cloud5, 15, 422);
-
+        
         platform1 = new Platform();
         addObject(platform1, 70, 718);
         platform2 = new Platform();
@@ -189,13 +182,20 @@ public class MyWorld extends World
 
     public void act() 
     {   
-        coinSpawn();
+        if(player.easy)
+        {
+            if(Greenfoot.isKeyDown("right"))
+            {
+                coinSpawn();
+            }
+        }
+        else
+        {
+            coinSpawn();
+        }
     }
-    
     public void coinSpawn()
     {
-        if(Greenfoot.isKeyDown("right"))
-        {
             if (Greenfoot.getRandomNumber(100) <= 1) 
             {
                 Random random = new Random();
@@ -208,6 +208,5 @@ public class MyWorld extends World
                 }
                 addObject(new Coin(), getWidth()-1, randomY);
             }
-        }
     }
 }
