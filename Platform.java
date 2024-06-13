@@ -22,8 +22,8 @@ public class Platform extends Actor
     }
     public void act() 
     {
-        MyWorld gameWorld = new MyWorld();
-        if(gameWorld.player.easy)
+        MyWorld world = new MyWorld();
+        if(world.ease())
         {
             if (Greenfoot.isKeyDown("right")) 
             {
@@ -44,15 +44,15 @@ public class Platform extends Actor
             }
         }
         
-        else if(gameWorld.player.easy==false)
+        else if(world.ease()==false)
         {
             if (Greenfoot.isKeyDown("right")) 
             {
-                move(-12);
+                move(-6);
             }
             if (Greenfoot.isKeyDown("left")) 
             {
-                move(12);
+                move(6);
             }
             int rightEdge = getX() + getImage().getWidth() / 2;
             if (rightEdge <= 0) 
