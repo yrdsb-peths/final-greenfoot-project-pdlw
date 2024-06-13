@@ -23,10 +23,14 @@ public class gameOver extends World
             l2.setFillColor(Color.WHITE);
             l2.setLineColor(Color.BLACK);
         }
-        if (soundFinished && Greenfoot.isKeyDown("space")) 
+        MyWorld gameWorld = new MyWorld();
+        if(gameWorld.player.easy)
         {
-            MyWorld gameWorld = new MyWorld();
-            Greenfoot.setWorld(gameWorld);
+            if(soundFinished && Greenfoot.isKeyDown("space")) 
+            {
+                gameWorld.player.easy = false;
+                Greenfoot.setWorld(gameWorld);
+            }
         }
     }
     private void displayGameOver(boolean newHigh) 

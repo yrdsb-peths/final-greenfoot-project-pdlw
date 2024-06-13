@@ -49,14 +49,6 @@ public class MyWorld extends World
         addObject(player, spawn.getX(), spawn.getY());
         player.getImage().scale(35,35);
     }
-    public boolean ease()
-    {
-        if(player.easy)
-        {
-            return true;
-        }
-        return false;
-    }
     public void increaseScore() 
     {
         score++;

@@ -53,9 +53,9 @@ public class Player extends Actor
 
     public void act()
     {
-        MyWorld world = (MyWorld) getWorld();
         if (getY() >= 799)
         {
+            MyWorld world = (MyWorld) getWorld();
             lives--;
             world.decreaseLives();
             checkLives();
@@ -156,6 +156,7 @@ public class Player extends Actor
     {
         if (lives == 0)
         {
+            MyWorld world = (MyWorld) getWorld();
             world.gameOver();
             world.removeObject(this);
         }
@@ -189,6 +190,7 @@ public class Player extends Actor
         }
         if(easy)
         {
+            Platform.ease = true;
             if(collect==15)
             {
                 world.gameWin();
@@ -196,6 +198,7 @@ public class Player extends Actor
         }
         else if(easy==false)
         {
+            Platform.ease = false;
             if(collect==30)
             {
                 world.gameWin();
