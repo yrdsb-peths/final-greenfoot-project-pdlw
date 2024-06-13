@@ -8,7 +8,7 @@ public class Player extends Actor
     private int vSpeed = 0;
     private int acceleration = 1;
     private int jumpHeight = -15;
-    private int lives = 2;
+    public int lives = 2;
     private int collect = 0;
     public boolean easy = true;
     GreenfootImage[] idleLeft = new GreenfootImage[4];
@@ -22,10 +22,6 @@ public class Player extends Actor
 
     public Player()
     {
-        if(easy==false)
-        {
-            lives = 1;
-        }
         for (int i = 0; i < 4; i++)
         {
             idleRight[i] = new GreenfootImage("idle0" + (i + 1) + ".png");
@@ -209,6 +205,7 @@ public class Player extends Actor
         }
         else if(easy==false)
         {
+            lives=1;
             Platform.ease = false;
             Coin.ease = false;
         }

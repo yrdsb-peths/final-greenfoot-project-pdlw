@@ -30,6 +30,7 @@ public class gameOver extends World
             if(soundFinished && Greenfoot.isKeyDown("space")) 
             {
                 Greenfoot.setWorld(title);
+                Greenfoot.delay(25);
             }
         }
     }

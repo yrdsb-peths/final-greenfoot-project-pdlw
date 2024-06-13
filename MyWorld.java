@@ -54,7 +54,7 @@ public class MyWorld extends World
             platform9 = new CopyOfPlatform();
             addObject(platform9, 70, 718);
         }
-        if(Platform.ease==false)
+        if(player.easy==false)
         {
             lives=1;
         }
