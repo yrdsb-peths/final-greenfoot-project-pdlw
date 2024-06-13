@@ -29,9 +29,9 @@ public class gameOver extends World
             if (newHigh)
             {
                 hiScoreLabel = new Label("But you got a new High Score of " + MyWorld.hiScore + "!", 60);
-                hiScoreLabel.setFillColor(Color.BLACK);
+                hiScoreLabel.setFillColor(Color.BLUE);
                 hiScoreLabel.setLineColor(Color.BLUE);
-                addObject(hiScoreLabel, 400, 700);
+                addObject(hiScoreLabel, 400, 600);
             }
             Greenfoot.stop();
         }

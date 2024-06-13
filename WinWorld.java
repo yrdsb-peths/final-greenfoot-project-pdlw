@@ -14,7 +14,6 @@ public class WinWorld extends World
     {    
         // Create a new world with 800x800 cells with a cell size of 1x1 pixels.
         super(800, 800, 1, false);
-        prepare();
         addObject(titleLabel, getWidth()/2, 400);
         titleLabel.setFillColor(Color.WHITE);
         titleLabel.setLineColor(Color.PINK);
@@ -32,7 +31,6 @@ public class WinWorld extends World
         if (!isGameOver) 
         {
             isGameOver = true;
-            reset();
             Label gameOverLabel = new Label("Game Over", 150);
             gameOverLabel.setFillColor(Color.BLUE);
             gameOverLabel.setLineColor(Color.BLUE);
@@ -60,17 +58,5 @@ public class WinWorld extends World
         {
             return y;
         }
-    }
-
-    public void prepare() 
-    {
-    }
-
-    public void reset() 
-    {
-    }
-
-    public void act() 
-    {
     }
 }
