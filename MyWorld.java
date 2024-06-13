@@ -161,18 +161,21 @@ public class MyWorld extends World
     }
 
     public void act() 
-    {
+    {   
         coinSpawn();
     }
     public void coinSpawn()
     {
-        if (Greenfoot.getRandomNumber(200) <= 1) 
+        if(Greenfoot.isKeyDown("right"))
         {
-            Random random = new Random();
-            int minY = 445;
-            int maxY = 730;
-            int randomY = random.nextInt(maxY - minY + 1) + minY;
-            addObject(new Coin(), getWidth()-1, randomY);
+            if (Greenfoot.getRandomNumber(200) <= 1) 
+            {
+                Random random = new Random();
+                int minY = 445;
+                int maxY = 730;
+                int randomY = random.nextInt(maxY - minY + 1) + minY;
+                addObject(new Coin(), getWidth()-1, randomY);
+            }
         }
     }
     public void spikeSpawn()

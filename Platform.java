@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Platform extends Actor
 {
-    private static List<Platform> platforms = new ArrayList<>();
+    public static List<Platform> platforms = new ArrayList<>();
     /**
      * Act - do whatever the Platform wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
