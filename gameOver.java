@@ -1,30 +1,39 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.Random;
-
 public class gameOver extends World 
 {
-    private boolean isGameOver = false;
     Label hiScoreLabel;
-
+    Label l2 = new Label("Press spacebar to play again", 70);
+    private boolean soundFinished = false;
+    GreenfootSound pointSound = new GreenfootSound("sad.mp3");
     public gameOver(boolean newHigh) 
     {    
         // Create a new world with 800x800 cells with a cell size of 1x1 pixels.
         super(800, 800, 1, false);
-        prepare();
-        
         Greenfoot.setSpeed(45);
         displayGameOver(newHigh);
+        pointSound.play();
     }
-
+    public void act() 
+    {
+        if (!soundFinished && !pointSound.isPlaying()) 
+        {
+            soundFinished = true;
+            addObject(l2, getWidth()/2, 700);
+            l2.setFillColor(Color.WHITE);
+            l2.setLineColor(Color.BLACK);
+        }
+        if (soundFinished && Greenfoot.isKeyDown("space")) 
+        {
+            MyWorld gameWorld = new MyWorld();
+            Greenfoot.setWorld(gameWorld);
+        }
+    }
     private void displayGameOver(boolean newHigh) 
     {
-        if (!isGameOver) 
-        {
-            isGameOver = true;
-            reset();
             Label gameOverLabel = new Label("Game Over", 150);
             gameOverLabel.setFillColor(Color.BLUE);
-            gameOverLabel.setLineColor(Color.BLUE);
+            gameOverLabel.setLineColor(Color.BLACK);
             addObject(gameOverLabel, 400, 500);
             if (newHigh)
             {
@@ -33,41 +42,5 @@ public class gameOver extends World
                 hiScoreLabel.setLineColor(Color.BLUE);
                 addObject(hiScoreLabel, 400, 600);
             }
-            Greenfoot.stop();
-        }
-    }
-
-    public class Location 
-    {
-        private int x;
-        private int y;
-
-        public Location(int x, int y) 
-        {
-            this.x = x;
-            this.y = y;
-        }
-
-        public int getX() 
-        {
-            return x;
-        }
-
-        public int getY() 
-        {
-            return y;
-        }
-    }
-
-    public void prepare() 
-    {
-    }
-
-    public void reset() 
-    {
-    }
-
-    public void act() 
-    {
     }
 }

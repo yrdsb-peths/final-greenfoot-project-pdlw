@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.Random;
 
-public class MyWorld extends World 
+public class Level2 extends World 
 {
     public boolean newHigh = false;
     public int score;
@@ -25,7 +25,7 @@ public class MyWorld extends World
     private Cloud cloud5;
     private Player player;
 
-    public MyWorld() 
+    public Level2() 
     {    
         // Create a new world with 800x800 cells with a cell size of 1x1 pixels.
         super(800, 800, 1, false);
@@ -53,7 +53,7 @@ public class MyWorld extends World
     public void increaseScore() 
     {
         score++;
-        if(score<=14)
+        if(score<=9)
         {
         GreenfootSound pointSound = new GreenfootSound("pointer.mp3");
         pointSound.play();
@@ -86,6 +86,7 @@ public class MyWorld extends World
         {
             gameOver over = new gameOver(newHigh);
             Greenfoot.setWorld(over);
+            Greenfoot.stop();
         }
     }
 
@@ -93,9 +94,15 @@ public class MyWorld extends World
     {
         WinWorld gameWorld = new WinWorld();
         Greenfoot.setWorld(gameWorld);
+        Greenfoot.stop();
     }
 
-    
+    public void respawn() 
+    {
+        player.setLocation(spawn.getX(), spawn.getY());
+        reset();
+    }
+
     public class Location 
     {
         private int x;

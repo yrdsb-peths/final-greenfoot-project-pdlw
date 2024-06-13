@@ -40,7 +40,7 @@ public class Platform extends Actor
         }
     }
 
-    private int calculateMinY() 
+    public static int calculateMinY() 
     {
         if (platforms.isEmpty()) 
         {
@@ -53,6 +53,7 @@ public class Platform extends Actor
         }
         return minY;
     }
+
     public int getPlatformX() 
     {
         return getX();

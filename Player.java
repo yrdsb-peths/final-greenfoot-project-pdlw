@@ -193,8 +193,9 @@ public class Player extends Actor
             collect++;
             world.increaseScore();
         }
-        if(collect==10)
+        if(collect==15)
         {
+            
             MyWorld world = (MyWorld) getWorld();
             world.gameWin();
         }
