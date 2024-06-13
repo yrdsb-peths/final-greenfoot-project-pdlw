@@ -14,6 +14,18 @@ public class Spike extends Actor
      */
     public void act()
     {
-        // Add your action code here.
+        if (Greenfoot.isKeyDown("right"))
+        {
+            move(-6);
+        }
+        if (Greenfoot.isKeyDown("left"))
+        {
+            move(6);
+        }
+        int rightEdge = getX() + getImage().getWidth() / 2;
+        if (rightEdge <= 0) 
+            {
+                getWorld().removeObject(this);
+            }
     }
 }

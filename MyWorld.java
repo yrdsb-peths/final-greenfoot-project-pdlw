@@ -39,7 +39,7 @@ public class MyWorld extends World
         addObject(scoreLabel, 250, 300);
         hiScoreLabel = new Label("High Score: " + hiScore, 60);
         hiScoreLabel.setFillColor(Color.BLUE);
-        addObject(hiScoreLabel, 180, 420);
+        addObject(hiScoreLabel, 179, 420);
         livesLabel = new Label("Lives Left: " + lives, 60);
         livesLabel.setFillColor(Color.ORANGE);
         addObject(livesLabel, 165, 360);
@@ -58,7 +58,7 @@ public class MyWorld extends World
         {
             newHigh = true;
             hiScore = score;
-            hiScoreLabel.setLocation(225,420);
+            hiScoreLabel.setLocation(245,420);
             hiScoreLabel.setValue("New High Score!: " + hiScore);
             hiScoreLabel.setFillColor(Color.RED);
         }
@@ -82,12 +82,6 @@ public class MyWorld extends World
 
     public void gameWin() 
     {
-        respawn();
-        /*Label winLabel = new Label("You Won!", 150);
-        winLabel.setFillColor(Color.BLUE);
-        winLabel.setLineColor(Color.BLUE);
-        addObject(winLabel, 400, 500);
-        */
         WinWorld gameWorld = new WinWorld();
         Greenfoot.setWorld(gameWorld);
         Greenfoot.stop();
@@ -166,8 +160,13 @@ public class MyWorld extends World
         cloud5.setLocation(15, 422);
     }
 
-    public void act() {
-        if (Greenfoot.getRandomNumber(100) <= 1) 
+    public void act() 
+    {
+        coinSpawn();
+    }
+    public void coinSpawn()
+    {
+        if (Greenfoot.getRandomNumber(200) <= 1) 
         {
             Random random = new Random();
             int minY = 445;
@@ -175,5 +174,16 @@ public class MyWorld extends World
             int randomY = random.nextInt(maxY - minY + 1) + minY;
             addObject(new Coin(), getWidth()-1, randomY);
         }
+    }
+    public void spikeSpawn()
+    {
+        /*if (Greenfoot.getRandomNumber(300) <= 1) 
+        {
+            Random random = new Random();
+            int minY = 445;
+            int maxY = 730;
+            int randomY = random.nextInt(maxY - minY + 1) + minY;
+            addObject(new Spike(), getWidth()-1, randomY);
+        }*/
     }
 }

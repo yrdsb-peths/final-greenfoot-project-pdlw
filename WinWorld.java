@@ -5,8 +5,6 @@ public class WinWorld extends World
 {
     public int score;
     public int lives; 
-    Label scoreLabel;
-    Label livesLabel;
     Label titleLabel = new Label("You Win!", 100);
     private boolean isGameOver = false;
 
@@ -17,12 +15,6 @@ public class WinWorld extends World
         addObject(titleLabel, getWidth()/2, 400);
         titleLabel.setFillColor(Color.WHITE);
         titleLabel.setLineColor(Color.PINK);
-        scoreLabel = new Label("Berries Collected: " + score, 60);
-        scoreLabel.setFillColor(Color.BLUE);
-        addObject(scoreLabel, 231, 700);
-        livesLabel = new Label("Lives Left: " + lives, 60);
-        livesLabel.setFillColor(Color.ORANGE);
-        addObject(livesLabel, 148, 750);
         Greenfoot.setSpeed(45);
     }
 
