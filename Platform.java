@@ -45,16 +45,16 @@ public class Platform extends Actor
         { // If ease mode is enabled
             if (Greenfoot.isKeyDown("right")) 
             {
-                move(-MOVE_SPEED); // Move left when right key is pressed
+                move(-6); // Move left when right key is pressed
             }
             if (Greenfoot.isKeyDown("left")) 
             {
-                move(MOVE_SPEED); // Move right when left key is pressed
+                move(6); // Move right when left key is pressed
             }
         } 
         else 
         {
-            move(-MOVE_SPEED); // Default movement to the left
+            move(-6); // Default movement to the left
         }
     }
 
