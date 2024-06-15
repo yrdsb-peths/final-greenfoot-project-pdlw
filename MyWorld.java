@@ -11,85 +11,77 @@ public class MyWorld extends World
     Label livesLabel;
     Label hiScoreLabel;
     private boolean isGameOver = false;
-    Location spawn = new Location(100, 690);
-    private Platform platform1;
-    private Platform platform2;
-    private Platform platform3;
-    private Platform platform4;
-    private Platform platform5;
+    public Location spawn = new Location(100, 690);
+    private Platform[] platforms = new Platform[5];
+    private Cloud[] clouds = new Cloud[6];
     private CopyOfPlatform platform9;
-    private Cloud cloud0;
-    private Cloud cloud1;
-    private Cloud cloud2;
-    private Cloud cloud3;
-    private Cloud cloud4;
-    private Cloud cloud5;
     public Player player;
+    private GreenfootSound pointerSound = new GreenfootSound("pointer.mp3");
+    private GreenfootSound completeSound = new GreenfootSound("complete.mp3");
+
 
     public MyWorld() 
     {    
-        // Create a new world with 800x800 cells with a cell size of 1x1 pixels.
         super(800, 800, 1, false);
         prepare();
-        if(score>=hiScore)
-        {
-           hiScore = score;
-        }
-        scoreLabel = new Label("Berries Collected: " + score, 60);
-        scoreLabel.setFillColor(Color.BLUE);
-        addObject(scoreLabel, 250, 300);
-        hiScoreLabel = new Label("High Score: " + hiScore, 60);
-        hiScoreLabel.setFillColor(Color.BLUE);
-        addObject(hiScoreLabel, 179, 420);
-        livesLabel = new Label("Lives Left: " + lives, 60);
-        livesLabel.setFillColor(Color.ORANGE);
-        addObject(livesLabel, 165, 360);
+        initializeLabels();
         Greenfoot.setSpeed(45);
-        
+
         player = new Player();
         addObject(player, spawn.getX(), spawn.getY());
-        player.getImage().scale(35,35);
+        player.getImage().scale(35, 35);
+
         if(Platform.ease==false)
+
         {
+
             platform9 = new CopyOfPlatform();
             addObject(platform9, 70, 718);
         }
-        if(player.easy==false)
-        {
-            lives=1;
-        }
     }
+
+    private void initializeLabels() 
+    {
+        scoreLabel = createLabel("Berries Collected: " + score, Color.BLUE, 250, 300);
+        hiScoreLabel = createLabel("High Score: " + hiScore, Color.BLUE, 179, 420);
+        livesLabel = createLabel("Lives Left: " + lives, Color.ORANGE, 165, 360);
+    }
+
+    private Label createLabel(String text, Color color, int x, int y) 
+    {
+        Label label = new Label(text, 60);
+        label.setFillColor(color);
+        addObject(label, x, y);
+        return label;
+    }
+
     public void increaseScore() 
     {
         score++;
-        if(player.easy)
-        {
-            if(score<=14)
-            {
-                GreenfootSound pointSound = new GreenfootSound("pointer.mp3");
-                pointSound.play();
-            }
-            else
-            {
-                GreenfootSound pointSound = new GreenfootSound("complete.mp3");
-                pointSound.play();
-            }
-        }
-        else
-        {
-            GreenfootSound pointSound = new GreenfootSound("pointer.mp3");
-            pointSound.play();
-        }
+        playPointSound();
         scoreLabel.setValue("Berries Collected: " + score);
         if (score > hiScore) 
         {
             newHigh = true;
             hiScore = score;
-            hiScoreLabel.setLocation(245,420);
+            hiScoreLabel.setLocation(245, 420);
             hiScoreLabel.setValue("New High Score!: " + hiScore);
             hiScoreLabel.setFillColor(Color.RED);
         }
     }
+
+    private void playPointSound() 
+    {
+        if (player.easy && score > 14) 
+        {
+            completeSound.play();
+        } 
+        else 
+        {
+            pointerSound.play();
+        }
+    }
+
 
     public void decreaseLives() 
     {
@@ -112,7 +104,79 @@ public class MyWorld extends World
         Greenfoot.setWorld(gameWorld);
     }
 
-    
+    public void prepare() 
+    {
+        clouds[0] = createCloud(107, 310, 70, 40);
+        clouds[1] = createCloud(322, 381, 70, 40);
+        clouds[2] = createCloud(569, 290, 130, 100);
+        clouds[3] = createCloud(590, 426, 70, 40);
+        clouds[4] = createCloud(775, 358, 70, 40);
+        clouds[5] = createCloud(15, 422, 70, 40);
+
+        platforms[0] = createPlatform(70, 718);
+        platforms[1] = createPlatform(225, 658);
+        platforms[2] = createPlatform(408, 595);
+        platforms[3] = createPlatform(576, 642);
+        platforms[4] = createPlatform(709, 708);
+    }
+
+    private Cloud createCloud(int x, int y, int width, int height) 
+    {
+        Cloud cloud = new Cloud();
+        addObject(cloud, x, y);
+        cloud.getImage().scale(width, height);
+        return cloud;
+    }
+
+    private Platform createPlatform(int x, int y) 
+    {
+        Platform platform = new Platform();
+        addObject(platform, x, y);
+        return platform;
+    }
+
+    public void reset() 
+    {
+        setObjectLocations(platforms, new int[][]{{70, 718}, {225, 658}, {408, 595}, {576, 642}, {709, 708}});
+        setObjectLocations(clouds, new int[][]{{107, 310}, {322, 381}, {569, 290}, {590, 426}, {775, 358}, {15, 422}});
+    }
+
+    private void setObjectLocations(Actor[] actors, int[][] locations) 
+    {
+        for (int i = 0; i < actors.length; i++) 
+        {
+            actors[i].setLocation(locations[i][0], locations[i][1]);
+        }
+    }
+
+    public void act() 
+    {   
+        if (player.easy && Greenfoot.isKeyDown("right")) 
+        {
+            coinSpawn();
+        } 
+        else if (!player.easy) 
+        {
+            coinSpawn();
+        }
+    }
+
+    public void coinSpawn()
+    {
+        if (Greenfoot.getRandomNumber(100) <= 1) 
+        {
+            Random random = new Random();
+            int minY = Platform.calculateMinY();
+            int maxY = 700;
+            int randomY = random.nextInt(maxY - minY + 1) + minY;
+            if (randomY > player.getY()) 
+            {
+                randomY = random.nextInt(maxY - minY + 1) + minY;
+            }
+            addObject(new Coin(), getWidth() - 1, randomY);
+        }
+    }
+
     public class Location 
     {
         private int x;
@@ -133,80 +197,5 @@ public class MyWorld extends World
         {
             return y;
         }
-    }
-
-    public void prepare() 
-    {
-        cloud0 = new Cloud();
-        addObject(cloud0, 107, 310);
-        cloud1 = new Cloud();
-        addObject(cloud1, 322, 381);
-        cloud1.getImage().scale(70, 40);
-        cloud2 = new Cloud();
-        addObject(cloud2, 569, 290);
-        cloud2.getImage().scale(130, 100);
-        cloud3 = new Cloud();
-        addObject(cloud3, 590, 426);
-        cloud4 = new Cloud();
-        addObject(cloud4, 775, 358);
-        cloud5 = new Cloud();
-        addObject(cloud5, 15, 422);
-        
-        platform1 = new Platform();
-        addObject(platform1, 70, 718);
-        platform2 = new Platform();
-        addObject(platform2, 225, 658);
-        platform3 = new Platform();
-        addObject(platform3, 408, 595);
-        platform4 = new Platform();
-        addObject(platform4,576,642);
-        platform5 = new Platform();
-        addObject(platform5,709,708);
-    }
-
-    public void reset() 
-    {
-        platform1.setLocation(70, 718);
-        platform2.setLocation(225, 658);
-        platform3.setLocation(408, 595);
-        platform4.setLocation(576,642);
-        platform5.setLocation(709,708);
-        
-        cloud0.setLocation(107, 310);
-        cloud1.setLocation(322, 381);
-        cloud2.setLocation(569, 290);
-        cloud3.setLocation(590, 426);
-        cloud4.setLocation(775, 358);
-        cloud5.setLocation(15, 422);
-    }
-
-    public void act() 
-    {   
-        if(player.easy)
-        {
-            if(Greenfoot.isKeyDown("right"))
-            {
-                coinSpawn();
-            }
-        }
-        else
-        {
-            coinSpawn();
-        }
-    }
-    public void coinSpawn()
-    {
-            if (Greenfoot.getRandomNumber(100) <= 1) 
-            {
-                Random random = new Random();
-                int minY = Platform.calculateMinY();
-                int maxY = 700;
-                int randomY = random.nextInt(maxY - minY + 1) + minY;
-                if(randomY > player.getY())
-                {
-                    randomY = random.nextInt(maxY - minY + 1) + minY;
-                }
-                addObject(new Coin(), getWidth()-1, randomY);
-            }
     }
 }

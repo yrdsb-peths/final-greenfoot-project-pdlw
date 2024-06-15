@@ -1,32 +1,30 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-/**
- * Write a description of class Coin here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
-public class Coin extends Actor
+public class Coin extends Actor 
 {
     public static boolean ease;
+
     /**
      * Act - do whatever the Coin wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public void act()
-    {
+    public void act() {
         mover();
         
-        
+        // Check if the coin has moved off the screen to the left, then remove it
         int rightEdge = getX() + getImage().getWidth() / 2;
         if (rightEdge <= 0) 
-            {
-                getWorld().removeObject(this);
-            }
+        {
+            getWorld().removeObject(this);
+        }
     }
-    public void mover()
+    
+    /**
+     * Move the coin based on the ease mode.
+     */
+    public void mover() 
     {
-        if(ease)
+        if (ease) 
         {
             if (Greenfoot.isKeyDown("right")) 
             {
@@ -36,9 +34,7 @@ public class Coin extends Actor
             {
                 move(6);
             }
-        }
-        else if(ease==false)
-        {
+        } else {
             move(-6);
         }
     }
